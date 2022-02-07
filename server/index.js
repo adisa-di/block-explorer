@@ -25,8 +25,8 @@ app.get('/currentBlock', (req, res) => {
 
   // get the latest block number from the network 
   getLatestBlock()
-    .then(({ number }) => {
-      res.json({ blockNo: parseInt(number) });
+    .then(response => {
+      res.json(response);
     })
     .catch((err) => {
       

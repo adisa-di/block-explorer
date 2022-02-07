@@ -1,3 +1,39 @@
 .container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.block_info {
+  font-family: "Glegoo", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #112d4e;
+}
+
+.title {
+  font-family: "Glegoo", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #112d4e;
+}
+
+.section {
+  font-family: "Glegoo", serif;
+  font-weight: 600;
+  color: #112d4e;
+  margin: 10px 0 10px 0;
+}
+
+.table_info {
+  /* text-align: left; */
+  font-family: "Glegoo", serif;
+  margin-top: 20px;
+}
+
+.label_item {
+  padding-right: 30px;
+  font-weight: 600;
 }
