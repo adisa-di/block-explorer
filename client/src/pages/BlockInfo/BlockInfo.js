@@ -12,7 +12,7 @@ const displayKey = new Set([ "baseFeePerGas", "difficulty", "gasLimit",  "miner"
 const labels = {
   "baseFeePerGas": "Base Fee Per Gas",
   "difficulty": "Difficulty",
-  "gasLimit": "Gase Limit",
+  "gasLimit": "Gas Limit",
   "miner": "Miner",
   "size": "Size",
   "nonce": "Nonce"
