@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export function getCurrentBlock() {
-  return axios.get("http://localhost:3002/currentBlock");
+export function getLatestBlock(network="homestead") {
+  return axios.get(`http://localhost:3002/block/${network}`);
 }

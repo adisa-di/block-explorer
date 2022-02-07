@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getCurrentBlock } from "../../api/etherscan";
+import { getLatestBlock } from "../../api/etherscan";
 import { Loading } from "../../components";
+
+// dropdowns
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 import "./BlockInfo.css";
 
@@ -13,6 +17,7 @@ const labels = {
   "size": "Size",
   "nonce": "Nonce"
 }
+
 
 function InfoTable({ info }) {
 
@@ -36,21 +41,31 @@ function InfoTable({ info }) {
 }
 
 function BlockInfo() {
+
+  const options = ['homestead', 'ropsten', 'rinkeby', "kovan", "goerli"];  
+  const defaultOption = options[0];
+
   const [blockInfo, setBlockInfo] = useState({});
   const [loading, setLoading] = useState(false);
+  const [network, setNetwork] = useState("homestead");
 
   useEffect(() => {
     setLoading(true);
-    getCurrentBlock()
+    getLatestBlock(network)
       .then(({ data }) => {
         setBlockInfo(data);
         setLoading(false);
       });
-  }, []);
+  }, [network]);
 
   return (
     <div className="container">
       <div className="title"> Block Explorer </div>
+      <div className="section network_select">
+          <span className="network_text">Querying from network:</span>
+          <Dropdown options={options} onChange={(e) => setNetwork(e.value)} value={defaultOption} placeholder="Select an option" />
+      </div>
+
       { loading ? <Loading/> : 
           <div>
             <div className="section"> Current Block #: {parseInt(blockInfo.number)} </div>

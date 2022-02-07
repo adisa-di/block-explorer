@@ -6,7 +6,6 @@ const { parse } = require('path/posix');
 
 // consts
 const PORT = 3002;
-const NETWORK = null; // mainnet
 
 // app set up
 const app = express();
@@ -15,13 +14,21 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // etherscan provider
-const provider = new providers.EtherscanProvider(NETWORK, process.env.ETHSCAN_API_KEY);
+let provider = null;
+let NETWORK = null; // main
 
 const getLatestBlock = async () => {
   return provider.perform("getBlock", {blockTag: "latest"});
 }
 
-app.get('/currentBlock', (req, res) => {
+app.get('/block/:network', (req, res) => {
+
+  const { network } = req.params;
+  if (NETWORK !== network) {
+    // re-set network and re-initilize the provider
+    NETWORK = network; 
+    provider = new providers.EtherscanProvider(NETWORK, process.env.ETHSCAN_API_KEY);
+  }
 
   // get the latest block number from the network 
   getLatestBlock()

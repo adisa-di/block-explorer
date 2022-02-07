@@ -27,6 +27,15 @@
   margin: 10px 0 10px 0;
 }
 
+.network_select {
+  display: flex;
+  align-items: center;
+}
+
+.network_text {
+  margin-right: 20px;
+}
+
 .table_info {
   /* text-align: left; */
   font-family: "Glegoo", serif;
