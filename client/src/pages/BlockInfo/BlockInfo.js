@@ -42,12 +42,12 @@ function InfoTable({ info }) {
 
 function BlockInfo() {
 
-  const options = ['homestead', 'ropsten', 'rinkeby', "kovan", "goerli"];  
+  const options = ['homestead', 'ropsten', 'rinkeby', 'kovan', 'goerli'];  
   const defaultOption = options[0];
 
   const [blockInfo, setBlockInfo] = useState({});
   const [loading, setLoading] = useState(false);
-  const [network, setNetwork] = useState("homestead");
+  const [network, setNetwork] = useState('homestead');
 
   useEffect(() => {
     setLoading(true);
