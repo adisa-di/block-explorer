@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getLatestBlock } from "../../api/etherscan";
+import { getLatestBlock, getTransaction } from "../../api/etherscan";
 import { Loading } from "../../components";
 
 // dropdowns
@@ -30,11 +30,19 @@ function InfoTable({ info }) {
             if (!displayKey.has(key)) return (<></>);
             
             return (
-              <tr key={idx} style={{ marginBottom: "20px" }}>
+              <tr key={idx}>
                 <td className="label_item">{labels[key]}</td>
                 {
-                  key === "transactions" 
-                    ? <div className="trnx_container">{info[key].map(trx => <div>{trx}</div>)}</div>
+                  key === "transactions"  
+                    ? <div className="trnx_container">
+                        { 
+                          info[key].map(trx => {
+                            return  <div className="single_trnx" onClick={() => console.log(trx)}>
+                                      {trx}
+                                    </div>;
+                          })
+                        }
+                      </div>
                     : <td>{info[key]}</td>
                 }
               </tr>
@@ -63,6 +71,12 @@ function BlockInfo() {
         setLoading(false);
       });
   }, [network]);
+
+  const selectTrnx = () => {
+
+    setLoading(true);
+
+  }
 
   return (
     <div className="container">

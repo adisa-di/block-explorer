@@ -51,3 +51,8 @@
   height: 200px;
   overflow-y: scroll;
 }
+
+.single_trnx:hover {
+  font-weight: 600;
+  cursor: pointer;
+}

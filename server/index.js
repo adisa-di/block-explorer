@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors')
 const { providers } = require('ethers');
 const bodyParser = require('body-parser');
-const { parse } = require('path/posix');
 
 // consts
 const PORT = 3002;
@@ -14,11 +13,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // etherscan provider
-let provider = null;
 let NETWORK = null; // main
+let provider = new providers.EtherscanProvider(NETWORK, process.env.ETHSCAN_API_KEY);;
 
 const getLatestBlock = async () => {
-  return provider.perform("getBlock", {blockTag: "latest"});
+  return provider.perform("getBlock", { blockTag: "latest" });
+}
+
+const getTransaction = async (hash) => {
+  return provider.perform("getTransaction", { transactionHash: hash });
 }
 
 app.get('/block/:network', (req, res) => {
@@ -40,7 +43,18 @@ app.get('/block/:network', (req, res) => {
     });
 });
 
-app.use(bodyParser.json());
+app.get('/transaction/:hash', (req, res) => {
+  const { hash } = req.params;
+  getTransaction(hash)
+    .then(response => {
+      console.log(response);
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
