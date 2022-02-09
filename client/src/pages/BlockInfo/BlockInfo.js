@@ -8,14 +8,15 @@ import 'react-dropdown/style.css';
 
 import "./BlockInfo.css";
 
-const displayKey = new Set([ "baseFeePerGas", "difficulty", "gasLimit",  "miner", "size", "nonce" ]);
+const displayKey = new Set([ "baseFeePerGas", "difficulty", "gasLimit",  "miner", "size", "nonce", "transactions" ]);
 const labels = {
   "baseFeePerGas": "Base Fee Per Gas",
   "difficulty": "Difficulty",
   "gasLimit": "Gas Limit",
   "miner": "Miner",
   "size": "Size",
-  "nonce": "Nonce"
+  "nonce": "Nonce",
+  "transactions": "Transactions"
 }
 
 
@@ -27,10 +28,15 @@ function InfoTable({ info }) {
         { 
           Object.keys(info).map((key, idx) => {
             if (!displayKey.has(key)) return (<></>);
+            
             return (
-              <tr key={idx}>
+              <tr key={idx} style={{ marginBottom: "20px" }}>
                 <td className="label_item">{labels[key]}</td>
-                <td>{info[key]}</td>
+                {
+                  key === "transactions" 
+                    ? <div className="trnx_container">{info[key].map(trx => <div>{trx}</div>)}</div>
+                    : <td>{info[key]}</td>
+                }
               </tr>
             );
           })

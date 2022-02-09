@@ -44,5 +44,11 @@
 
 .label_item {
   padding-right: 30px;
+  padding-bottom: 5px;
   font-weight: 600;
+}
+
+.trnx_container {
+  height: 200px;
+  overflow-y: scroll;
 }
