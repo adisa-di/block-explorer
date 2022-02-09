@@ -20,7 +20,7 @@ const labels = {
 }
 
 
-function InfoTable({ info }) {
+function InfoTable({ info, selectTrnx }) {
 
   return (
     <table className="table_info">
@@ -37,7 +37,7 @@ function InfoTable({ info }) {
                     ? <div className="trnx_container">
                         { 
                           info[key].map(trx => {
-                            return  <div className="single_trnx" onClick={() => console.log(trx)}>
+                            return  <div className="single_trnx" onClick={() => selectTrnx(trx)}>
                                       {trx}
                                     </div>;
                           })
@@ -72,10 +72,13 @@ function BlockInfo() {
       });
   }, [network]);
 
-  const selectTrnx = () => {
-
+  const selectTrnx = (hash) => {
     setLoading(true);
-
+    getTransaction(hash)
+      .then(({ data }) => {
+        console.log(data);
+        setLoading(false);
+      });
   }
 
   return (
@@ -83,13 +86,17 @@ function BlockInfo() {
       <div className="title"> Block Explorer </div>
       <div className="section network_select">
           <span className="network_text">Querying from network:</span>
+          <div>
+            Block 
+            Account
+          </div>
           <Dropdown options={options} onChange={(e) => setNetwork(e.value)} value={defaultOption} placeholder="Select an option" />
       </div>
 
       { loading ? <Loading/> : 
           <div>
             <div className="section"> Current Block #: {parseInt(blockInfo.number)} </div>
-            <InfoTable info={blockInfo}/> 
+            <InfoTable info={blockInfo} selectTrnx={selectTrnx}/> 
           </div>
       } 
     </div>
