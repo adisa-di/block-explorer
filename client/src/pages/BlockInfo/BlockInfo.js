@@ -86,10 +86,10 @@ function BlockInfo() {
       <div className="title"> Block Explorer </div>
       <div className="section network_select">
           <span className="network_text">Querying from network:</span>
-          <div>
+          {/* <div>
             Block 
             Account
-          </div>
+          </div> */}
           <Dropdown options={options} onChange={(e) => setNetwork(e.value)} value={defaultOption} placeholder="Select an option" />
       </div>
 
