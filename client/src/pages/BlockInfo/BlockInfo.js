@@ -85,7 +85,7 @@ function BlockInfo() {
     <div className="container">
       <div className="title"> Block Explorer </div>
       <div className="section network_select">
-          <span className="network_text">Querying from network:</span>
+          <span className="network_text">Querying from network: </span>
           {/* <div>
             Block 
             Account
